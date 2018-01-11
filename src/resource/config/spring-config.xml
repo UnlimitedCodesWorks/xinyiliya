@@ -10,7 +10,7 @@
     <context:property-placeholder location="classpath:/properties/aliyun.properties"  />
 
     <import resource="spring-tang.xml" />
-    <import resource="spring-wang.xml" />
+    <import resource="spring-hong.xml" />
     <import resource="spring-wang.xml" />
 
     <!--配置阿里云操作OSS客户端-->
