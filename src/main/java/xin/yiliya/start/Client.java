@@ -47,7 +47,7 @@ public class Client {
     @Test
     public void test(){
         final Logger logger = LogManager.getLogger("mylog");
-        final File file = new File("src/resource/image/test.zip");
+        final File file = new File("src/resource/image/logo.jpg");
 
         Thread oneThread = new Thread(new Runnable() {
             public void run() {
