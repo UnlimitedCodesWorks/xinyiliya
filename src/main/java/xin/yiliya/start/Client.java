@@ -1,5 +1,6 @@
 package xin.yiliya.start;
 
+import org.apache.http.client.HttpClient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
@@ -24,11 +25,12 @@ public class Client {
     @Autowired
     private AliOssTool aliOssTool;
 
-    /**
-     * 注入进度条
-     */
+    //注入进度条
     @Autowired
     private PutObjectProgressListener progress;
+    //注入HttpClient
+    @Autowired
+    private HttpClient httpClient;
 
     //设置子线程数为1
     private int i = 1;
