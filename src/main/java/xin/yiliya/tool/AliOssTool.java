@@ -1,6 +1,7 @@
 package xin.yiliya.tool;
 
 import com.aliyun.oss.OSSClient;
+import com.aliyun.oss.model.GetObjectRequest;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PutObjectRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,6 @@ public class AliOssTool {
 
     /**
      * 创建一个50MB的临时文件
-     *
      */
     public File createSampleFile() throws IOException {
         File file = File.createTempFile("oss-java-sdk-", ".txt");
@@ -47,6 +47,9 @@ public class AliOssTool {
 
     /**
      * 传送单个文件
+     * @param file 文件对象
+     * @param putObjectProgressListener 自定义进度条
+     * @return 文件的链接
      */
     public String putObject(File file,BaseProgress putObjectProgressListener){
         String fileName = file.getName();
@@ -63,7 +66,24 @@ public class AliOssTool {
     }
 
     /**
-     * 传送图片
+     * 下载一个文件
+     * @param file 存放文件对象
+     * @param link 目标文件链接
+     */
+    public void getObject(File file,String link,BaseProgress getObjectProgressListener){
+        String fileName = link.substring(link.lastIndexOf("/")+1);
+        // 带进度条的下载
+        ossClient.getObject(new GetObjectRequest(BUCKETNAME, fileName).
+                        <GetObjectRequest>withProgressListener(getObjectProgressListener),
+                file);
+    }
+
+    /**
+     * 上传一个图片
+     * @param file 图片对象
+     * @return
+     * @throws ImageFormatException 图标格式不支持则报错
+     * @throws FileNotFoundException 文件无法找到则报错
      */
     public String putImage(File file) throws ImageFormatException, FileNotFoundException {
         String fileName = file.getName();

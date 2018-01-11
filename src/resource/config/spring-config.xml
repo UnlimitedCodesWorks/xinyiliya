@@ -23,4 +23,5 @@
 
     <bean id="putObjectProgressListener" class="xin.yiliya.tool.PutObjectProgressListener" scope="prototype" />
 
+    <bean id="getObjectProgressListener" class="xin.yiliya.tool.GetObjectProgressListener" scope="prototype" />
 </beans>

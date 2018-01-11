@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import xin.yiliya.tool.AliOssTool;
+import xin.yiliya.tool.GetObjectProgressListener;
 import xin.yiliya.tool.PutObjectProgressListener;
 
 import java.io.File;
@@ -27,6 +28,9 @@ public class TestClient {
     @Autowired
     private PutObjectProgressListener progress;
 
+    @Autowired
+    private GetObjectProgressListener getProgress;
+
     //设置子线程数为1
     private int i = 1;
     /*
@@ -45,12 +49,13 @@ public class TestClient {
     public void test(){
         final Logger logger = LogManager.getLogger("mylog");
         final File file = new File("src/resource/image/logo.jpg");
-
+        final File newFile = new File("src/resource/image/abc.jpg");
         Thread oneThread = new Thread(new Runnable() {
             public void run() {
                 try {
                     String link = aliOssTool.putObject(file,progress);
                     logger.debug(link);
+                    aliOssTool.getObject(newFile,link,getProgress);
                 }catch (Exception e){
                     e.printStackTrace();
                 }finally {
@@ -69,10 +74,13 @@ public class TestClient {
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
+
         try {
             latch.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
     }
+
 }
