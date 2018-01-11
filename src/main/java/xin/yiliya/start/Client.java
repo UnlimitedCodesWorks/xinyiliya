@@ -22,65 +22,6 @@ import java.util.concurrent.CountDownLatch;
 @ContextConfiguration({"classpath:config/spring-config.xml"})
 public class Client {
 
-    @Autowired
-    private AliOssTool aliOssTool;
-
-    //注入进度条
-    @Autowired
-    private PutObjectProgressListener progress;
-    //注入HttpClient
-    @Autowired
-    private HttpClient httpClient;
-
-    //设置子线程数为1
-    private int i = 1;
-    /*
-     * 线程计数器
-     * 	将线程数量初始化
-     * 	每执行完成一条线程，调用countDown()使计数器减1
-     * 	主线程调用方法await()使其等待，当计数器为0时才被执行
-     *
-     */
-    private CountDownLatch latch = new CountDownLatch(i);
-
-    /**
-     * 样例
-     */
-    @Test
-    public void test(){
-        final Logger logger = LogManager.getLogger("mylog");
-        final File file = new File("src/resource/image/logo.jpg");
-
-        Thread oneThread = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    String link = aliOssTool.putObject(file,progress);
-                    logger.debug(link);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }finally {
-                    latch.countDown();
-                }
-            }
-        });
-        oneThread.start();
-//        try {
-//            Thread.sleep(1000);
-//            //暂停线程
-//            oneThread.suspend();
-//            Thread.sleep(2000);
-//            //重启线程
-//            oneThread.resume();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
     /**
      * 客户端运行通道
      */
