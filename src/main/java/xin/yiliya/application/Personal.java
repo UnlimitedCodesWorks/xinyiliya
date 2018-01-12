@@ -6,8 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 
-public class Search extends Application {
+public class Personal extends Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -15,8 +16,8 @@ public class Search extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/search.fxml"));
-        primaryStage.setTitle("查询好友");
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/personal.fxml"));
+        primaryStage.setTitle("个人信息");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
         primaryStage.show();

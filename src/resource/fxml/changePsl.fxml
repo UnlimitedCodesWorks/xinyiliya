@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="500.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xin.yiliya.controller.ChangePsl">
+   <children>
+      <Text fill="#c9c4c4" layoutX="50.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="昵      称" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Text>
+      <Text fill="#c9c4c4" layoutX="50.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="个人签名" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Text>
+      <Text fill="#c9c4c4" layoutX="47.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="性      别" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Text>
+      <Text fill="#c9c4c4" layoutX="50.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="出生年月" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Text>
+      <TextField fx:id="userName" layoutX="109.0" layoutY="44.0" prefHeight="18.0" prefWidth="170.0" text="Kamimin">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </TextField>
+      <TextArea fx:id="userRemark" layoutX="109.0" layoutY="78.0" prefHeight="76.0" prefWidth="170.0" text="这是一条简单的个人签名">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </TextArea>
+      <TextField fx:id="userBirth" layoutX="109.0" layoutY="194.0" prefHeight="18.0" prefWidth="170.0" text="1996-12-27" AnchorPane.leftAnchor="109.0">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </TextField>
+      <Button layoutX="40.0" layoutY="246.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="239.0" style="-fx-background-color: #3498db;" text="保存" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Button>
+      <TextField layoutX="109.0" layoutY="164.0" prefHeight="22.0" prefWidth="170.0" text="男" AnchorPane.leftAnchor="109.0" AnchorPane.topAnchor="164.0">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>
