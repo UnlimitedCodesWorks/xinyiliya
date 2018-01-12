@@ -1,0 +1,4 @@
+.login-title {
+    -fx-background-image: url("/image/login.jpg");
+    -fx-background-repeat: none;
+}
