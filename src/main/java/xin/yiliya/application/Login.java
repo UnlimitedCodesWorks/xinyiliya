@@ -10,15 +10,16 @@ import java.io.IOException;
 
 public class Login extends Application {
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+        Parent root = fxmlLoader.load();
+        xin.yiliya.controller.Login login = fxmlLoader.getController();
+        login.setStage(primaryStage);
         primaryStage.setTitle("登录");
-        primaryStage.setScene(new Scene(root, 800, 450));
+        final Scene scene = new Scene(root, 800, 450);
+        scene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
+        primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
     }
