@@ -15,7 +15,8 @@ public class Search extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/search.fxml"));
+        FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/fxml/search.fxml"));
+        Parent root = fxmlLoader.load();
         primaryStage.setTitle("查询好友");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);

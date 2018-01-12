@@ -16,7 +16,8 @@ public class ChangePsl extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/changePsl.fxml"));
+        FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/fxml/changePsl.fxml"));
+        Parent root = fxmlLoader.load();
         primaryStage.setTitle("修改个人信息");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);

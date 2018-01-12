@@ -16,7 +16,8 @@ public class Personal extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/personal.fxml"));
+        FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/fxml/personal.fxml"));
+        Parent root = fxmlLoader.load();
         primaryStage.setTitle("个人信息");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
