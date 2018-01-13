@@ -2,6 +2,10 @@ package xin.yiliya.service;
 
 import xin.yiliya.pojo.Friends;
 
+/**
+ * 好友接口
+ * @author  aiurmaple
+ */
 public interface FriendService {
 
     /**
