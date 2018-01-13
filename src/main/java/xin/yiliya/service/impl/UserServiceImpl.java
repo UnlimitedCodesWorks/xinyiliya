@@ -8,7 +8,7 @@ import xin.yiliya.service.UserService;
 @Component
 public class UserServiceImpl implements UserService {
 
-    final private String URL = "http://101.132.171.77:80/experiment/";
+    private final String URL = "http://101.132.171.77:80/experiment/";
 
     @Autowired
     private RestTemplate rest;
