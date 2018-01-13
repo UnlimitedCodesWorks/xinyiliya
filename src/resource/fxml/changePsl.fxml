@@ -45,7 +45,7 @@
             <Font size="10.0" />
          </font>
       </TextField>
-      <Button layoutX="40.0" layoutY="246.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="239.0" style="-fx-background-color: #3498db;" text="保存" textAlignment="CENTER" textFill="WHITE">
+      <Button layoutX="40.0" layoutY="246.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="239.0" style="-fx-background-color: #3498db;" text="保存" onMouseClicked="#savechange" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="12.0" />
          </font>
