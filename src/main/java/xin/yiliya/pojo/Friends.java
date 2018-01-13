@@ -7,6 +7,8 @@ public class Friends {
 
     private Integer friendId;
 
+    private Integer confirmStatus;
+
     public Integer getId() {
         return id;
     }
@@ -29,5 +31,13 @@ public class Friends {
 
     public void setFriendId(Integer friendId) {
         this.friendId = friendId;
+    }
+
+    public Integer getConfirmStatus() {
+        return confirmStatus;
+    }
+
+    public void setConfirmStatus(Integer confirmStatus) {
+        this.confirmStatus = confirmStatus;
     }
 }
