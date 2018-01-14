@@ -31,35 +31,7 @@
          <content>
             <FlowPane fx:id="searchFlow" prefWidth="600.0" prefWrapLength="0.0">
                <children>
-                  <AnchorPane prefHeight="100.0" prefWidth="200.0" styleClass="search_all">
-                     <children>
-                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="26.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" styleClass="search_img" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" >
-                           <image>
-                              <Image url="@../image/head.jpg" />
-                           </image>
-                        </ImageView>
-                        <Text layoutX="107.0" layoutY="29.0" nodeOrientation="LEFT_TO_RIGHT" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="search_name" text="Kaimimin" wrappingWidth="100.0" AnchorPane.leftAnchor="95.0" AnchorPane.topAnchor="15.0">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="90.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="search_id" text="1137724797" wrappingWidth="100.0" AnchorPane.leftAnchor="94.0" AnchorPane.topAnchor="30.0">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Text>
-                        <Text fill="#867f7f" layoutX="92.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="search_address" text="浙江 衢州" wrappingWidth="100.0" AnchorPane.leftAnchor="95.0" AnchorPane.topAnchor="50.0">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Text>
-                        <Button layoutX="94.0" layoutY="67.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="66.0" style="-fx-background-color: #3498db;" styleClass="search_addbtn" text="加好友" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="95.0" AnchorPane.topAnchor="67.0">
-                           <font>
-                              <Font size="10.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </AnchorPane>
+
                </children>
             </FlowPane>
          </content></ScrollPane>
