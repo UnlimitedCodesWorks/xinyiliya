@@ -7,26 +7,37 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Login {
-    @FXML TextField number;
+    @FXML
+    private TextField number;
 
-    @FXML PasswordField password;
+    @FXML
+    private PasswordField password;
 
-    @FXML GridPane gridPane;
+    private Map<String, Stage> stageMap = new HashMap<String, Stage>();
 
     private Stage stage;
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    public void addStage(String key, Stage stage) {
+        stageMap.put(key, stage);
     }
 
-    public  void isLogin(ActionEvent event) throws IOException {
+    public void init() {
+        password.setTooltip(new Tooltip("密码"));
+        number.setTooltip(new Tooltip("账号"));
+        stage = stageMap.get("primary");
+    }
+
+    //点击登录
+    public  void isLogin(ActionEvent event) {
         if (number.getText().length() == 0) {
             number.setPromptText("请输入账号");
             number.setStyle("-fx-border-color: red;");
@@ -38,6 +49,21 @@ public class Login {
         else {
             stage.hide();
         }
+    }
+
+    //点击注册
+    public void goRegist(ActionEvent event) throws IOException {
+        stage.hide();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/regist.fxml"));
+        Parent root = fxmlLoader.load();
+        Regist regist = fxmlLoader.getController();
+        regist.setStageMap(stageMap);
+        regist.init();
+        stage.setTitle("注册");
+        final Scene scene = new Scene(root, 450, 800);
+        scene.getStylesheets().add(getClass().getResource("/css/regist.css").toExternalForm());
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void focusNumber(MouseEvent event) {

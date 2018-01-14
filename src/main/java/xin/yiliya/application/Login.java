@@ -15,7 +15,8 @@ public class Login extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
         Parent root = fxmlLoader.load();
         xin.yiliya.controller.Login login = fxmlLoader.getController();
-        login.setStage(primaryStage);
+        login.addStage("primary", primaryStage);
+        login.init();
         primaryStage.setTitle("登录");
         final Scene scene = new Scene(root, 800, 450);
         scene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
