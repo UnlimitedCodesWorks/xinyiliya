@@ -18,25 +18,25 @@ import java.util.List;
 @Component
 public class UserServiceImpl implements UserService {
 
-    private final String URL = "http://101.132.171.77:80/experiment/";
+    private final String URL = "http://101.132.171.77:80/experiment/user/";
 
     @Autowired
     private RestTemplate rest;
 
     public Integer login(String account, String password) {
-        return rest.getForObject(URL+"user/login?num={account}&pass={password}",Integer.class,account,password);
+        return rest.getForObject(URL+"login?num={account}&pass={password}",Integer.class,account,password);
     }
 
     public Integer register(User user) {
-        return rest.postForObject(URL+"user/register",user,Integer.class);
+        return rest.postForObject(URL+"register",user,Integer.class);
     }
 
     public Integer updateInfo(User user) {
-        return rest.postForObject(URL+"user/update",user,Integer.class);
+        return rest.postForObject(URL+"update",user,Integer.class);
     }
 
     public UserLaunch getUserInfo(Integer userId) {
-        return rest.getForObject(URL+"user/launch?userId={userId}",UserLaunch.class,userId);
+        return rest.getForObject(URL+"launch?userId={userId}",UserLaunch.class,userId);
     }
 
     public List<User> getUsersByInput(String input) {
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
         MultiValueMap<String,String> headers = new LinkedMultiValueMap<String, String>();
         headers.add("Accept","application/json");
         HttpEntity<Object> requestEntity = new HttpEntity<Object>(headers);
-        ResponseEntity<List<User>> responseEntity = rest.exchange(URL+"user/find?input={input}", HttpMethod.GET,requestEntity,typeRef,input);
+        ResponseEntity<List<User>> responseEntity = rest.exchange(URL+"find?input={input}", HttpMethod.GET,requestEntity,typeRef,input);
         return responseEntity.getBody();
     }
 
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
         MultiValueMap<String,String> headers = new LinkedMultiValueMap<String, String>();
         headers.add("Accept","application/json");
         HttpEntity<Object> requestEntity = new HttpEntity<Object>(headers);
-        ResponseEntity<List<User>> responseEntity = rest.exchange(URL+"user/apply?userId={userId}", HttpMethod.GET,requestEntity,typeRef,userId);
+        ResponseEntity<List<User>> responseEntity = rest.exchange(URL+"apply?userId={userId}", HttpMethod.GET,requestEntity,typeRef,userId);
         return responseEntity.getBody();
     }
 }

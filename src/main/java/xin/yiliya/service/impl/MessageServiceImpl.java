@@ -19,13 +19,13 @@ import java.util.List;
 @Component
 public class MessageServiceImpl implements MessageService {
 
-    private final String URL = "http://101.132.171.77:80/experiment/";
+    private final String URL = "http://101.132.171.77:80/experiment/message/";
 
     @Autowired
     private RestTemplate rest;
 
     public Integer sendMessage(Message message) {
-        return rest.postForObject(URL+"message/sendMsg",message,Integer.class);
+        return rest.postForObject(URL+"sendMsg",message,Integer.class);
     }
 
     public List<MessagePicture> viewHistory(Integer sendId, Integer receiveId) {
@@ -35,7 +35,7 @@ public class MessageServiceImpl implements MessageService {
         headers.add("Accept","application/json");
         HttpEntity<Object> requestEntity = new HttpEntity<Object>(headers);
         ResponseEntity<List<MessagePicture>> responseEntity =
-                rest.exchange(URL+"message/historyMsg?sendId={sendId}&receiveId={receiveId}",
+                rest.exchange(URL+"historyMsg?sendId={sendId}&receiveId={receiveId}",
                         HttpMethod.GET,requestEntity,typeRef,sendId,receiveId);
         return responseEntity.getBody();
     }
@@ -47,7 +47,7 @@ public class MessageServiceImpl implements MessageService {
         headers.add("Accept","application/json");
         HttpEntity<Object> requestEntity = new HttpEntity<Object>(headers);
         ResponseEntity<List<MessagePicture>> responseEntity =
-                rest.exchange(URL+"message/newMsgs?sendId={sendId}&receiveId={receiveId}",
+                rest.exchange(URL+"newMsgs?sendId={sendId}&receiveId={receiveId}",
                         HttpMethod.GET,requestEntity,typeRef,sendId,receiveId);
         return responseEntity.getBody();
     }

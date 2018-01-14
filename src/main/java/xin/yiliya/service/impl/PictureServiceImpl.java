@@ -9,12 +9,12 @@ import xin.yiliya.service.PictureService;
 @Component
 public class PictureServiceImpl implements PictureService {
 
-    private final String URL = "http://101.132.171.77:80/experiment/";
+    private final String URL = "http://101.132.171.77:80/experiment/picture/";
 
     @Autowired
     private RestTemplate rest;
 
     public Integer sendPicture(MessagePicture messagePicture) {
-        return rest.postForObject(URL+"picture/sendPicOnly",messagePicture,Integer.class);
+        return rest.postForObject(URL+"sendPicOnly",messagePicture,Integer.class);
     }
 }

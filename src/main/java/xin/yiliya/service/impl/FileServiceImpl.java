@@ -19,13 +19,13 @@ import java.util.List;
 @Component
 public class FileServiceImpl implements FileService {
 
-    private final String URL = "http://101.132.171.77:80/experiment/";
+    private final String URL = "http://101.132.171.77:80/experiment/file/";
 
     @Autowired
     private RestTemplate rest;
 
     public Integer sendFile(MessageFile messageFile) {
-        return rest.postForObject(URL+"file/sendFileOnly",messageFile,Integer.class);
+        return rest.postForObject(URL+"sendFileOnly",messageFile,Integer.class);
     }
 
     public List<File> readFile(Integer sendId, Integer receiveId) {
@@ -35,12 +35,12 @@ public class FileServiceImpl implements FileService {
         headers.add("Accept","application/json");
         HttpEntity<Object> requestEntity = new HttpEntity<Object>(headers);
         ResponseEntity<List<File>> responseEntity =
-                rest.exchange(URL+"file/readFile?sendId={sendId}&receiveId={receiveId}",
+                rest.exchange(URL+"readFile?sendId={sendId}&receiveId={receiveId}",
                         HttpMethod.GET,requestEntity,typeRef,sendId,receiveId);
         return responseEntity.getBody();
     }
 
     public Integer downloadFile(File file) {
-        return rest.postForObject(URL+"file/dwlFile",file,Integer.class);
+        return rest.postForObject(URL+"dwlFile",file,Integer.class);
     }
 }

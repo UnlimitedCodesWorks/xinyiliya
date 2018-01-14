@@ -9,24 +9,24 @@ import xin.yiliya.service.FriendService;
 @Component
 public class FriendServiceImpl implements FriendService {
 
-    private final String URL = "http://101.132.171.77:80/experiment/";
+    private final String URL = "http://101.132.171.77:80/experiment/user/";
 
     @Autowired
     private RestTemplate rest;
 
     public Boolean addFriend(Friends friends) {
-        return rest.postForObject(URL+"user/addFriend",friends,Boolean.class);
+        return rest.postForObject(URL+"addFriend",friends,Boolean.class);
     }
 
     public Boolean sureFriend(Friends friends) {
-        return rest.postForObject(URL+"user/sureFriend",friends,Boolean.class);
+        return rest.postForObject(URL+"sureFriend",friends,Boolean.class);
     }
 
     public Boolean refuseFriend(Friends friends) {
-        return rest.postForObject(URL+"user/refuseFriend",friends,Boolean.class);
+        return rest.postForObject(URL+"refuseFriend",friends,Boolean.class);
     }
 
     public Boolean deleteFriend(Friends friends) {
-        return rest.postForObject(URL+"user/deleteFriend",friends,Boolean.class);
+        return rest.postForObject(URL+"deleteFriend",friends,Boolean.class);
     }
 }
