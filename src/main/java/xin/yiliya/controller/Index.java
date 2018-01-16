@@ -23,6 +23,7 @@ public class Index {
 
     Stage personalStage;
     Stage searchStage;
+    Stage addmessageStage;
     public  void  init(){
         //动态生成好友
             //好友总模块
@@ -93,6 +94,18 @@ public class Index {
         searchStage.setResizable(false);
         searchStage.show();
     }
+    // 点击""，打开加好友确认消息页面
+    public void showMessage(MouseEvent mouseEvent) throws Exception{
+        FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/fxml/addmessage.fxml"));
+        Parent root = fxmlLoader.load();
+        xin.yiliya.controller.Addmessage addmessage = fxmlLoader.getController();
+        addmessageStage.setTitle("验证消息");
+        addmessageStage.setScene(new Scene(root));
+        addmessageStage.setResizable(false);
+        addmessageStage.show();
+        addmessage.init();
+    }
+
     public void setPersonal(Stage personalStage) {
         this.personalStage = personalStage;
     }
@@ -100,4 +113,10 @@ public class Index {
     public void setSearch(Stage searchStage) {
         this.searchStage = searchStage;
     }
+
+    public void setAddmessage(Stage addmessageStage) {
+        this.addmessageStage = addmessageStage;
+    }
+
+
 }

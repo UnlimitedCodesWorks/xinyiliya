@@ -28,5 +28,7 @@ public class Index extends Application {
         index.setPersonal(personalStage);
         Stage searchStage = new Stage();
         index.setSearch(searchStage);
+        Stage addmessageStage = new Stage();
+        index.setAddmessage(addmessageStage);
     }
 }
