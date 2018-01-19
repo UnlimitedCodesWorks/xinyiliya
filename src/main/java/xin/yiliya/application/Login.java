@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import xin.yiliya.pojo.SpringContext;
+import xin.yiliya.pojo.UserBean;
 
 import java.io.IOException;
 
@@ -23,5 +25,8 @@ public class Login extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
+        //测试
+        UserBean userBean = (UserBean) SpringContext.ctx.getBean("userBean");
+        System.out.println(userBean.getUserId());
     }
 }

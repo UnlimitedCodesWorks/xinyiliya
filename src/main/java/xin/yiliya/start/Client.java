@@ -7,28 +7,27 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import xin.yiliya.application.Login;
+import xin.yiliya.pojo.SpringContext;
+import xin.yiliya.pojo.UserBean;
 import xin.yiliya.tool.AliOssTool;
 import xin.yiliya.tool.PutObjectProgressListener;
 
 import java.io.File;
 import java.util.concurrent.CountDownLatch;
 
-/**
- * 配置spring和junit整合，junit启动时加载springIOC容器 spring-test,junit
- */
-@RunWith(SpringJUnit4ClassRunner.class)
-// 告诉junit spring配置文件
-@ContextConfiguration({"classpath:config/spring-config.xml"})
 public class Client {
 
     /**
      * 客户端运行通道
      */
-    @Test
-    public void run(){
+    public static void main(String[] args){
+        SpringContext.ctx =new ClassPathXmlApplicationContext("config/spring-config.xml");
+        UserBean userBean = (UserBean) SpringContext.ctx.getBean("userBean");
+        userBean.setUserId(1);
         Application.launch(Login.class);
     }
 }
