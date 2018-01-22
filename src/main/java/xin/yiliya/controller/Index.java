@@ -21,6 +21,7 @@ import xin.yiliya.pojo.UserBean;
 import xin.yiliya.pojo.UserLaunch;
 import xin.yiliya.service.UserService;
 import xin.yiliya.thread.UnReadNumThread;
+import xin.yiliya.thread.UnReplyNumThread;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,6 +58,8 @@ public class Index {
 
     private List<UnReadNumThread> threads;
 
+    private UnReplyNumThread unReplyNumThread;
+
     public Index(){
         userService = (UserService) SpringContext.ctx.getBean("userServiceImpl");
         userBean = (UserBean) SpringContext.ctx.getBean("userBean");
@@ -74,6 +77,9 @@ public class Index {
         if(userList!=null){
             createFriend(userList);
         }
+        //启动监听好友申请线程
+        unReplyNumThread = new UnReplyNumThread();
+        unReplyNumThread.start();
     }
 
     private void createFriend(List<User> friendList) throws IOException {
@@ -139,6 +145,7 @@ public class Index {
             });
             //总体生成
             myFriend.getChildren().add(myfriend1);
+            //启动监听未读消息线程
             UnReadNumThread thread = new UnReadNumThread();
             thread.setText(friendunread);
             thread.setReceiveId(userBean.getUserId());
