@@ -63,7 +63,6 @@ public class Login {
                 stage.setScene(new Scene(root));
                 stage.setTitle("QQ2018");
                 stage.setResizable(false);
-                index.init();
                 stage.show();
                 Stage personalStage = new Stage();
                 index.setPersonal(personalStage);
@@ -72,6 +71,9 @@ public class Login {
                 Stage addmessageStage = new Stage();
                 index.setAddmessage(addmessageStage);
                 index.setIndex(index);
+                Stage dialog = new Stage();
+                index.setDialog(dialog);
+                index.init();
             }else{
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("QQ");

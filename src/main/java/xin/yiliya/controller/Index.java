@@ -21,6 +21,7 @@ import xin.yiliya.pojo.UserBean;
 import xin.yiliya.pojo.UserLaunch;
 import xin.yiliya.service.UserService;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,6 +45,8 @@ public class Index {
 
     private Stage addmessageStage;
 
+    private Stage dialog;
+
     private xin.yiliya.controller.Index index;
 
     private List<Integer> receiveIds = new LinkedList<Integer>();
@@ -54,7 +57,7 @@ public class Index {
 
     private UserBean userBean = (UserBean) SpringContext.ctx.getBean("userBean");
 
-    public  void  init(){
+    public  void  init() throws IOException {
         UserLaunch userLaunch = userService.getUserInfo(userBean.getUserId());
         User user = userLaunch.getUser();
         if(user!=null){
@@ -68,7 +71,7 @@ public class Index {
         }
     }
 
-    private void createFriend(List<User> friendList){
+    private void createFriend(List<User> friendList) throws IOException {
         myFriend.getChildren().removeAll(myFriend.getChildren());
         for(final User user:friendList){
             //动态生成好友
@@ -110,11 +113,21 @@ public class Index {
             friendunread.setText("1条未读信息");
             unreadTextList.add(friendunread);
             myfriend1.getChildren().add(friendunread);
+            //初始化会话Stage
+            FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/fxml/dialog.fxml"));
+            Parent root = fxmlLoader.load();
+            dialog.setTitle("会话");
+            dialog.setScene(new Scene(root, 600, 500));
+            dialog.setResizable(false);
+            final Dialog dialogController = fxmlLoader.getController();
+
             //监听事件添加(用作弹出消息对话框，添加顺序在朋友昵称生成后，不然获取不到)
             myfriend1.setOnMouseClicked(new EventHandler<MouseEvent>(){
                 @Override
                 public void handle(MouseEvent event) {
                     Integer receiveId = user.getId();
+                    dialogController.setStage(dialog);
+                    dialog.show();
                 }
             });
             //总体生成
@@ -169,8 +182,11 @@ public class Index {
         this.addmessageStage = addmessageStage;
     }
 
-
     public void setIndex(Index index) {
         this.index = index;
+    }
+
+    public void setDialog(Stage dialog) {
+        this.dialog = dialog;
     }
 }

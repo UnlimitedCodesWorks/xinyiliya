@@ -18,6 +18,7 @@ import xin.yiliya.pojo.UserBean;
 import xin.yiliya.service.FriendService;
 import xin.yiliya.service.UserService;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -84,7 +85,11 @@ public class Addmessage {
                         alert.setHeaderText("恭喜您，添加好友成功");
                         alert.show();
                         messagePane.getChildren().remove(message1);
-                        index.init();
+                        try {
+                            index.init();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }else {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("由于网络或其他原因，添加好友失败！");
@@ -115,7 +120,11 @@ public class Addmessage {
                         alert.setHeaderText("拒绝了添加好友的请求");
                         alert.show();
                         messagePane.getChildren().remove(message1);
-                        index.init();
+                        try {
+                            index.init();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }else {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("由于网络或其他原因，拒绝好友失败！");
