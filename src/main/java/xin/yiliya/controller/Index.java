@@ -113,21 +113,25 @@ public class Index {
             friendunread.setText("1条未读信息");
             unreadTextList.add(friendunread);
             myfriend1.getChildren().add(friendunread);
-            //初始化会话Stage
-            FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/fxml/dialog.fxml"));
-            Parent root = fxmlLoader.load();
-            dialog.setTitle("会话");
-            dialog.setScene(new Scene(root, 600, 500));
-            dialog.setResizable(false);
-            final Dialog dialogController = fxmlLoader.getController();
-
             //监听事件添加(用作弹出消息对话框，添加顺序在朋友昵称生成后，不然获取不到)
             myfriend1.setOnMouseClicked(new EventHandler<MouseEvent>(){
                 @Override
                 public void handle(MouseEvent event) {
                     Integer receiveId = user.getId();
-                    dialogController.setStage(dialog);
-                    dialog.show();
+                    //初始化会话Stage
+                    FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/fxml/dialog.fxml"));
+                    Parent root = null;
+                    try {
+                        root = fxmlLoader.load();
+                        dialog.setTitle("会话");
+                        dialog.setScene(new Scene(root, 600, 500));
+                        dialog.setResizable(false);
+                        final Dialog dialogController = fxmlLoader.getController();
+                        dialogController.setStage(dialog);
+                        dialog.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
             //总体生成

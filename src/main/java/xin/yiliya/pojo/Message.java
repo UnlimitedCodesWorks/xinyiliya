@@ -9,6 +9,8 @@ public class Message {
 
     private Integer sendId;
 
+    private User sender;
+
     private Integer receiveId;
 
     private Integer readStatus;
@@ -61,5 +63,13 @@ public class Message {
 
     public void setMsgTime(Date msgTime) {
         this.msgTime = msgTime;
+    }
+
+    public User getSender() {
+        return sender;
+    }
+
+    public void setSender(User sender) {
+        this.sender = sender;
     }
 }
