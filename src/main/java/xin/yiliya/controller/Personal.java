@@ -16,8 +16,6 @@ import xin.yiliya.pojo.UserBean;
 import xin.yiliya.pojo.UserLaunch;
 import xin.yiliya.service.UserService;
 
-import java.text.SimpleDateFormat;
-
 
 public class Personal {
     @FXML

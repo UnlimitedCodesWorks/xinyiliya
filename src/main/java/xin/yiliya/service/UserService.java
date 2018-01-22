@@ -53,4 +53,11 @@ public interface UserService {
      * @return 待同意的好友列表
      */
     List<User> getReplyUsers(Integer userId);
+
+    /**
+     * 得到待同意的好友数目
+     * @param userId 用户id
+     * @return 待同意的好友数目
+     */
+    Integer getReplyNum(Integer userId);
 }

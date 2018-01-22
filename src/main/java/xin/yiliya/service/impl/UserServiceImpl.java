@@ -58,4 +58,9 @@ public class UserServiceImpl implements UserService {
         ResponseEntity<List<User>> responseEntity = rest.exchange(URL+"apply?userId={userId}", HttpMethod.GET,requestEntity,typeRef,userId);
         return responseEntity.getBody();
     }
+
+    @Override
+    public Integer getReplyNum(Integer userId) {
+        return rest.getForObject(URL+"applyNum?userId={userId}",Integer.class,userId);
+    }
 }
