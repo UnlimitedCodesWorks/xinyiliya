@@ -8,7 +8,7 @@ import java.util.List;
 public interface FileService {
 
     /**
-     * 发哦文件
+     * 发送文件
      * @param messageFile 文件信息
      * @return 发送成功返回文件id，失败则为0
      */

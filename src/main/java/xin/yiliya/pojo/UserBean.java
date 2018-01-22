@@ -1,5 +1,8 @@
 package xin.yiliya.pojo;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UserBean {
 
     private Integer userId;
