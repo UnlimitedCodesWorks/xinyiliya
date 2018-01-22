@@ -71,6 +71,7 @@ public class Login {
                 index.setSearch(searchStage);
                 Stage addmessageStage = new Stage();
                 index.setAddmessage(addmessageStage);
+                index.setIndex(index);
             }else{
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("QQ");

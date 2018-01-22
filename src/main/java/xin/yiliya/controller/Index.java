@@ -44,6 +44,8 @@ public class Index {
 
     private Stage addmessageStage;
 
+    private xin.yiliya.controller.Index index;
+
     private List<Integer> receiveIds = new LinkedList<Integer>();
 
     private List<Text> unreadTextList = new LinkedList<Text>();
@@ -67,6 +69,7 @@ public class Index {
     }
 
     private void createFriend(List<User> friendList){
+        myFriend.getChildren().removeAll(myFriend.getChildren());
         for(final User user:friendList){
             //动态生成好友
             //好友总模块
@@ -112,7 +115,6 @@ public class Index {
                 @Override
                 public void handle(MouseEvent event) {
                     Integer receiveId = user.getId();
-                    System.out.println(receiveId);
                 }
             });
             //总体生成
@@ -152,6 +154,7 @@ public class Index {
         addmessageStage.setResizable(false);
         addmessageStage.show();
         addmessage.init();
+        addmessage.setIndex(index);
     }
 
     public void setPersonal(Stage personalStage) {
@@ -167,4 +170,7 @@ public class Index {
     }
 
 
+    public void setIndex(Index index) {
+        this.index = index;
+    }
 }
