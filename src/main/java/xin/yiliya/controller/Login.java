@@ -37,7 +37,7 @@ public class Login {
     }
 
     //点击登录
-    public  void isLogin(ActionEvent event) {
+    public  void isLogin(ActionEvent event) throws IOException {
         if (number.getText().length() == 0) {
             number.setPromptText("请输入账号");
             number.setStyle("-fx-border-color: red;");
@@ -48,6 +48,20 @@ public class Login {
         }
         else {
             stage.hide();
+            FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/fxml/index.fxml"));
+            Parent root = fxmlLoader.load();
+            xin.yiliya.controller.Index index = fxmlLoader.getController();
+            stage.setScene(new Scene(root));
+            stage.setTitle("QQ2018");
+            stage.setResizable(false);
+            index.init();
+            stage.show();
+            Stage personalStage = new Stage();
+            index.setPersonal(personalStage);
+            Stage searchStage = new Stage();
+            index.setSearch(searchStage);
+            Stage addmessageStage = new Stage();
+            index.setAddmessage(addmessageStage);
         }
     }
 
@@ -60,7 +74,7 @@ public class Login {
         regist.setStageMap(stageMap);
         regist.init();
         stage.setTitle("注册");
-        final Scene scene = new Scene(root, 450, 800);
+        final Scene scene = new Scene(root, 450, 850);
         scene.getStylesheets().add(getClass().getResource("/css/regist.css").toExternalForm());
         stage.setScene(scene);
         stage.show();

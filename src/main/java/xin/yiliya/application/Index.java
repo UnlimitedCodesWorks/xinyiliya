@@ -16,19 +16,19 @@ public class Index extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/fxml/index.fxml"));
-        Parent root = fxmlLoader.load();
-        xin.yiliya.controller.Index index = fxmlLoader.getController();
-        primaryStage.setScene(new Scene(root));
-        primaryStage.setTitle("QQ2018");
-        primaryStage.setResizable(false);
-        index.init();
-        primaryStage.show();
-        Stage personalStage = new Stage();
-        index.setPersonal(personalStage);
-        Stage searchStage = new Stage();
-        index.setSearch(searchStage);
-        Stage addmessageStage = new Stage();
-        index.setAddmessage(addmessageStage);
+//        FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/fxml/index.fxml"));
+//        Parent root = fxmlLoader.load();
+//        xin.yiliya.controller.Index index = fxmlLoader.getController();
+//        primaryStage.setScene(new Scene(root));
+//        primaryStage.setTitle("QQ2018");
+//        primaryStage.setResizable(false);
+//        index.init();
+//        primaryStage.show();
+//        Stage personalStage = new Stage();
+//        index.setPersonal(personalStage);
+//        Stage searchStage = new Stage();
+//        index.setSearch(searchStage);
+//        Stage addmessageStage = new Stage();
+//        index.setAddmessage(addmessageStage);
     }
 }

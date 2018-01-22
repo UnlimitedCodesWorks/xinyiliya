@@ -6,9 +6,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 
@@ -31,9 +37,16 @@ public class Regist {
     @FXML
     private Label notice;
 
+    @FXML
+    private ImageView head;
+
     private Map<String, Stage> stageMap;
 
     private Stage stage;
+
+    private File file;
+
+    private Image image;
 
     public void setStageMap(Map<String, Stage> stageMap) {
         this.stageMap = stageMap;
@@ -46,6 +59,20 @@ public class Regist {
         password.setTooltip(new Tooltip("密码"));
         number.setTooltip(new Tooltip("账号"));
         stage = stageMap.get("primary");
+    }
+
+    //点击选择头像
+    public void selectHead(ActionEvent event) throws FileNotFoundException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("选择头像");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("All Images", "*.*"),
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("PNG", "*.png")
+        );
+        file = fileChooser.showOpenDialog(stage);
+        image = new Image(new FileInputStream(file));
+        head.setImage(image);
     }
 
     //点击取消
@@ -62,6 +89,9 @@ public class Regist {
         }
         else if (!(sex.getText().equals("男")) && !(sex.getText().equals("女"))) {
             notice.setText("请正确填写性别 （男/女）");
+        }
+        else if (image == null) {
+            notice.setText("请选择头像");
         }
         else {
             goLogin();
