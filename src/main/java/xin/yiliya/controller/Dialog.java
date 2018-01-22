@@ -1,19 +1,22 @@
 package xin.yiliya.controller;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -36,7 +39,17 @@ public class Dialog {
     @FXML
     private ScrollPane scroll;
 
+    @FXML
+    private ScrollPane scroll2;
+
+    @FXML
+    private FlowPane container2;
+
     private Stage stage;
+
+    private Timer timer = new Timer();
+
+    private SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
 
     public void init() {
 
@@ -45,15 +58,36 @@ public class Dialog {
     //发送消息
     public void submit(ActionEvent event) {
         if (content.getText().length() != 0) {
+            //容器
+            FlowPane flowPane = new FlowPane();
+            flowPane.setMinWidth(560);
+            flowPane.setMaxWidth(560);
+            flowPane.setHgap(10);
+            flowPane.setVgap(10);
+
+            //时间
+            Label time = new Label(formatter.format(new Date()));
+            time.setMinWidth(560);
+            time.setTextFill(Color.web("#A8A8A8"));
+
+            //头像
+            ImageView head = new ImageView("/image/regist.jpg");
+            head.setFitHeight(70);
+            head.setFitWidth(70);
+            head.setPreserveRatio(true);
+
+            //内容
             Label text = new Label(content.getText());
             text.setWrapText(true);
-            text.setMaxWidth(560);
-            text.setMinWidth(560);
-            container.getChildren().add(text);
+            text.setMaxWidth(480);
+
+            flowPane.getChildren().add(time);
+            flowPane.getChildren().add(head);
+            flowPane.getChildren().add(text);
+            container.getChildren().add(flowPane);
             content.setText("");
             content.requestFocus();
         }
-        Timer timer = new Timer();
         timer.schedule(new TimerTask(){
             public void run(){
                 scroll.setVvalue(1);
@@ -68,9 +102,38 @@ public class Dialog {
         fileChooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("All Files", "*.*")
         );
-        File file = fileChooser.showOpenDialog(stage);
-        Label label = new Label(file.getName());
-        container.getChildren().add(label);
+        final File file = fileChooser.showOpenDialog(stage);
+        if (file != null) {
+            //容器
+            FlowPane flowPane = new FlowPane();
+            flowPane.setMinWidth(200);
+            flowPane.setMaxWidth(200);
+            flowPane.setVgap(10);
+
+            //文件名
+            Label name = new Label(file.getName());
+            name.setMinWidth(180);
+
+            //进度条
+            ProgressBar progressBar = new ProgressBar();
+            progressBar.setMinWidth(180);
+
+            //下载
+            Hyperlink hpl = new Hyperlink("下载");
+            hpl.setMinWidth(180);
+            hpl.setStyle("-fx-alignment: TOP_RIGHT;");
+            hpl.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    System.out.println(file.getName());
+                }
+            });
+
+            flowPane.getChildren().add(name);
+            flowPane.getChildren().add(progressBar);
+            flowPane.getChildren().add(hpl);
+            container2.getChildren().add(flowPane);
+        }
     }
 
     //选择图片
@@ -83,13 +146,41 @@ public class Dialog {
                 new FileChooser.ExtensionFilter("PNG", "*.png")
         );
         File file = fileChooser.showOpenDialog(stage);
-        Image image = new Image(new FileInputStream(file));
-        Label picture = new Label();
-        ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(280);
-        imageView.setPreserveRatio(true);
-        picture.setGraphic(imageView);
-        container.getChildren().add(picture);
+        if (file != null) {
+            //容器
+            FlowPane flowPane = new FlowPane();
+            flowPane.setMinWidth(560);
+            flowPane.setMaxWidth(560);
+            flowPane.setHgap(10);
+            flowPane.setVgap(10);
+
+            //时间
+            Label time = new Label(formatter.format(new Date()));
+            time.setMinWidth(560);
+            time.setTextFill(Color.web("#A8A8A8"));
+
+            //头像
+            ImageView head = new ImageView("/image/regist.jpg");
+            head.setFitHeight(70);
+            head.setFitWidth(70);
+            head.setPreserveRatio(true);
+
+            //图片
+            Image image = new Image(new FileInputStream(file));
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(300);
+            imageView.setPreserveRatio(true);
+
+            flowPane.getChildren().add(time);
+            flowPane.getChildren().add(head);
+            flowPane.getChildren().add(imageView);
+            container.getChildren().add(flowPane);
+        }
+    }
+
+    //查看历史消息
+    public void browseHistory(ActionEvent event) {
+
     }
 
     public void setStage(Stage stage) {

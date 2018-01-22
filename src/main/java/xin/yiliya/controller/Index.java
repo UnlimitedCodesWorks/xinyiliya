@@ -124,7 +124,7 @@ public class Index {
                     try {
                         root = fxmlLoader.load();
                         dialog.setTitle("会话");
-                        dialog.setScene(new Scene(root, 600, 500));
+                        dialog.setScene(new Scene(root, 810, 500));
                         dialog.setResizable(false);
                         final Dialog dialogController = fxmlLoader.getController();
                         dialogController.setStage(dialog);
