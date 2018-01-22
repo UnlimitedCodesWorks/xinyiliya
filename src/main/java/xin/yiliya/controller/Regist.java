@@ -63,6 +63,7 @@ public class Regist {
 
     //点击选择头像
     public void selectHead(ActionEvent event) throws FileNotFoundException {
+        notice.setText("");
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("选择头像");
         fileChooser.getExtensionFilters().addAll(
