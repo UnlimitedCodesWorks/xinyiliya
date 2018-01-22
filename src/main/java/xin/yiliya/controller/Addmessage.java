@@ -77,8 +77,8 @@ public class Addmessage {
                 public void handle(ActionEvent event) {
                     Integer friendId = user.getId();
                     Friends friends = new Friends();
-                    friends.setFriendId(userBean.getUserId());
-                    friends.setUserId(friendId);
+                    friends.setFriendId(friendId);
+                    friends.setUserId(userBean.getUserId());
                     if(friendService.sureFriend(friends)){
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("恭喜您，添加好友成功");
@@ -108,8 +108,8 @@ public class Addmessage {
                 public void handle(ActionEvent event) {
                     Integer friendId = user.getId();
                     Friends friends = new Friends();
-                    friends.setFriendId(userBean.getUserId());
-                    friends.setUserId(friendId);
+                    friends.setFriendId(friendId);
+                    friends.setUserId(userBean.getUserId());
                     if(friendService.refuseFriend(friends)){
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("拒绝了添加好友的请求");
