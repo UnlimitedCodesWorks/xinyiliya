@@ -11,6 +11,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import xin.yiliya.exception.ImageFormatException;
+import xin.yiliya.pojo.SpringContext;
+import xin.yiliya.pojo.User;
+import xin.yiliya.pojo.UserBean;
+import xin.yiliya.service.UserService;
+import xin.yiliya.tool.AliOssTool;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -95,7 +101,34 @@ public class Regist {
             notice.setText("请选择头像");
         }
         else {
-            goLogin();
+            User user = new User();
+            user.setUserName(name.getText());
+            user.setUserNum(number.getText());
+            user.setUserPass(password.getText());
+            user.setUserIntroduce(introduce.getText());
+            user.setUserGender(sex.getText());
+            AliOssTool aliOssTool = (AliOssTool) SpringContext.ctx.getBean("aliOssTool");
+            try {
+                user.setUserHead(aliOssTool.putImage(file));
+            } catch (ImageFormatException e) {
+                e.printStackTrace();
+            }
+            UserService userService = (UserService) SpringContext.ctx.getBean("userServiceImpl");
+            Integer userId = userService.register(user);
+            if(userId!=0){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("QQ");
+                alert.setHeaderText("注册状态");
+                alert.setContentText("注册成功!");
+                alert.showAndWait();
+                goLogin();
+            }else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("QQ");
+                alert.setHeaderText("注册状态");
+                alert.setContentText("注册失败!");
+                alert.showAndWait();
+            }
         }
     }
 

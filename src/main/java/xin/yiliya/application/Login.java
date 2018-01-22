@@ -25,8 +25,5 @@ public class Login extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
-        //测试
-        UserBean userBean = (UserBean) SpringContext.ctx.getBean("userBean");
-        System.out.println(userBean.getUserId());
     }
 }

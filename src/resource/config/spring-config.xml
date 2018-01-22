@@ -19,7 +19,6 @@
         <constructor-arg name="accessKeyId" value="${AccessKeyID}" />
         <constructor-arg name="secretAccessKey" value="${AccessKeySecret}" />
     </bean>
-    <bean id="aliOssTool" class="xin.yiliya.tool.AliOssTool" />
 
     <bean id="putObjectProgressListener" class="xin.yiliya.tool.PutObjectProgressListener" scope="prototype" />
 

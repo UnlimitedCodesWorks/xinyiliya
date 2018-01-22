@@ -26,8 +26,6 @@ public class Client {
      */
     public static void main(String[] args){
         SpringContext.ctx =new ClassPathXmlApplicationContext("config/spring-config.xml");
-        UserBean userBean = (UserBean) SpringContext.ctx.getBean("userBean");
-        userBean.setUserId(1);
         Application.launch(Login.class);
     }
 }

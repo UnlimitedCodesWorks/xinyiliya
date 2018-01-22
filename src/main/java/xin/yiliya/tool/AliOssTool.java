@@ -5,6 +5,7 @@ import com.aliyun.oss.model.GetObjectRequest;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PutObjectRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import xin.yiliya.baseInterface.BaseProgress;
 import xin.yiliya.exception.ImageFormatException;
 
@@ -13,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+@Component
 public class AliOssTool {
 
     private final static String BUCKETNAME = "computer-net";

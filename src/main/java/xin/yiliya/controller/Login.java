@@ -5,11 +5,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import xin.yiliya.pojo.SpringContext;
+import xin.yiliya.pojo.UserBean;
+import xin.yiliya.service.UserService;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -47,21 +51,33 @@ public class Login {
             password.setStyle("-fx-border-color: red;");
         }
         else {
-            stage.hide();
-            FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/fxml/index.fxml"));
-            Parent root = fxmlLoader.load();
-            xin.yiliya.controller.Index index = fxmlLoader.getController();
-            stage.setScene(new Scene(root));
-            stage.setTitle("QQ2018");
-            stage.setResizable(false);
-            index.init();
-            stage.show();
-            Stage personalStage = new Stage();
-            index.setPersonal(personalStage);
-            Stage searchStage = new Stage();
-            index.setSearch(searchStage);
-            Stage addmessageStage = new Stage();
-            index.setAddmessage(addmessageStage);
+            UserService userService = (UserService) SpringContext.ctx.getBean("userServiceImpl");
+            Integer userId = userService.login(number.getText(),password.getText());
+            if(userId!=0) {
+                UserBean userBean = (UserBean) SpringContext.ctx.getBean("userBean");
+                userBean.setUserId(userId);
+                stage.hide();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/index.fxml"));
+                Parent root = fxmlLoader.load();
+                xin.yiliya.controller.Index index = fxmlLoader.getController();
+                stage.setScene(new Scene(root));
+                stage.setTitle("QQ2018");
+                stage.setResizable(false);
+                index.init();
+                stage.show();
+                Stage personalStage = new Stage();
+                index.setPersonal(personalStage);
+                Stage searchStage = new Stage();
+                index.setSearch(searchStage);
+                Stage addmessageStage = new Stage();
+                index.setAddmessage(addmessageStage);
+            }else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("QQ");
+                alert.setHeaderText("登录状态");
+                alert.setContentText("登录失败!");
+                alert.showAndWait();
+            }
         }
     }
 
