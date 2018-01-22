@@ -42,6 +42,9 @@ public class Index {
     @FXML
     private Text userComment;
 
+    @FXML
+    private Text seemessage;
+
     private Stage personalStage;
 
     private Stage searchStage;
@@ -79,6 +82,7 @@ public class Index {
         }
         //启动监听好友申请线程
         unReplyNumThread = new UnReplyNumThread();
+        unReplyNumThread.setText(seemessage);
         unReplyNumThread.start();
     }
 
