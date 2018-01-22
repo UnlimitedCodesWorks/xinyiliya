@@ -20,8 +20,10 @@ import xin.yiliya.pojo.User;
 import xin.yiliya.pojo.UserBean;
 import xin.yiliya.pojo.UserLaunch;
 import xin.yiliya.service.UserService;
+import xin.yiliya.thread.UnReadNumThread;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -49,14 +51,17 @@ public class Index {
 
     private xin.yiliya.controller.Index index;
 
-    private List<Integer> receiveIds = new LinkedList<Integer>();
+    private UserService userService;
 
-    private List<Text> unreadTextList = new LinkedList<Text>();
+    private UserBean userBean;
 
-    private UserService userService = (UserService) SpringContext.ctx.getBean("userServiceImpl");
+    private List<UnReadNumThread> threads;
 
-    private UserBean userBean = (UserBean) SpringContext.ctx.getBean("userBean");
-
+    public Index(){
+        userService = (UserService) SpringContext.ctx.getBean("userServiceImpl");
+        userBean = (UserBean) SpringContext.ctx.getBean("userBean");
+        threads = new ArrayList<UnReadNumThread>();
+    }
     public  void  init() throws IOException {
         UserLaunch userLaunch = userService.getUserInfo(userBean.getUserId());
         User user = userLaunch.getUser();
@@ -76,7 +81,6 @@ public class Index {
         for(final User user:friendList){
             //动态生成好友
             //好友总模块
-            receiveIds.add(user.getId());
             AnchorPane myfriend1 = new AnchorPane();
             myfriend1.setPrefWidth(300.0);
             myfriend1.setPrefHeight(85.0);
@@ -111,7 +115,6 @@ public class Index {
             friendunread.setLayoutY(72.0);
             friendunread.setStyle("-fx-font-size: 10;-fx-stroke-type: outside");
             friendunread.setText("1条未读信息");
-            unreadTextList.add(friendunread);
             myfriend1.getChildren().add(friendunread);
             //监听事件添加(用作弹出消息对话框，添加顺序在朋友昵称生成后，不然获取不到)
             myfriend1.setOnMouseClicked(new EventHandler<MouseEvent>(){
@@ -136,6 +139,12 @@ public class Index {
             });
             //总体生成
             myFriend.getChildren().add(myfriend1);
+            UnReadNumThread thread = new UnReadNumThread();
+            thread.setText(friendunread);
+            thread.setReceiveId(userBean.getUserId());
+            thread.setSendId(user.getId());
+            threads.add(thread);
+            thread.start();
         }
     }
     //点击头像的ImageView 打开个人信息界面

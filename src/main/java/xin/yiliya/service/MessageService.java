@@ -30,4 +30,12 @@ public interface MessageService {
      */
     List<MessagePicture> viewNew(Integer sendId,Integer receiveId);
 
+    /**
+     * 用户查看未读消息数目
+     * @param sendId
+     * @param receiveId
+     * @return 返回未读消息数目
+     */
+    Integer viewNewNum(Integer sendId,Integer receiveId);
+
 }

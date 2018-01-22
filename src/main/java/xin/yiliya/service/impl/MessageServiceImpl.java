@@ -51,4 +51,9 @@ public class MessageServiceImpl implements MessageService {
                         HttpMethod.GET,requestEntity,typeRef,sendId,receiveId);
         return responseEntity.getBody();
     }
+
+    @Override
+    public Integer viewNewNum(Integer sendId, Integer receiveId) {
+        return rest.getForObject(URL+"newMsgNum?sendId={sendId}&receiveId={receiveId}",Integer.class,sendId,receiveId);
+    }
 }
