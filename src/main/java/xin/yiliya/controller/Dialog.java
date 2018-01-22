@@ -60,26 +60,26 @@ public class Dialog {
         if (content.getText().length() != 0) {
             //容器
             FlowPane flowPane = new FlowPane();
-            flowPane.setMinWidth(560);
-            flowPane.setMaxWidth(560);
-            flowPane.setHgap(10);
+            flowPane.setMinWidth(690);
+            flowPane.setMaxWidth(690);
+            flowPane.setHgap(20);
             flowPane.setVgap(10);
 
             //时间
             Label time = new Label(formatter.format(new Date()));
-            time.setMinWidth(560);
+            time.setMinWidth(690);
             time.setTextFill(Color.web("#A8A8A8"));
 
             //头像
             ImageView head = new ImageView("/image/regist.jpg");
-            head.setFitHeight(70);
-            head.setFitWidth(70);
+            head.setFitHeight(100);
+            head.setFitWidth(100);
             head.setPreserveRatio(true);
 
             //内容
             Label text = new Label(content.getText());
             text.setWrapText(true);
-            text.setMaxWidth(480);
+            text.setMaxWidth(570);
 
             flowPane.getChildren().add(time);
             flowPane.getChildren().add(head);
@@ -106,21 +106,21 @@ public class Dialog {
         if (file != null) {
             //容器
             FlowPane flowPane = new FlowPane();
-            flowPane.setMinWidth(200);
-            flowPane.setMaxWidth(200);
+            flowPane.setMinWidth(250);
+            flowPane.setMaxWidth(250);
             flowPane.setVgap(10);
 
             //文件名
             Label name = new Label(file.getName());
-            name.setMinWidth(180);
+            name.setMinWidth(250);
 
             //进度条
             ProgressBar progressBar = new ProgressBar();
-            progressBar.setMinWidth(180);
+            progressBar.setMinWidth(250);
 
             //下载
             Hyperlink hpl = new Hyperlink("下载");
-            hpl.setMinWidth(180);
+            hpl.setMinWidth(250);
             hpl.setStyle("-fx-alignment: TOP_RIGHT;");
             hpl.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
@@ -149,26 +149,26 @@ public class Dialog {
         if (file != null) {
             //容器
             FlowPane flowPane = new FlowPane();
-            flowPane.setMinWidth(560);
-            flowPane.setMaxWidth(560);
-            flowPane.setHgap(10);
+            flowPane.setMinWidth(690);
+            flowPane.setMaxWidth(690);
+            flowPane.setHgap(20);
             flowPane.setVgap(10);
 
             //时间
             Label time = new Label(formatter.format(new Date()));
-            time.setMinWidth(560);
+            time.setMinWidth(690);
             time.setTextFill(Color.web("#A8A8A8"));
 
             //头像
             ImageView head = new ImageView("/image/regist.jpg");
-            head.setFitHeight(70);
-            head.setFitWidth(70);
+            head.setFitHeight(100);
+            head.setFitWidth(100);
             head.setPreserveRatio(true);
 
             //图片
             Image image = new Image(new FileInputStream(file));
             ImageView imageView = new ImageView(image);
-            imageView.setFitWidth(300);
+            imageView.setFitWidth(400);
             imageView.setPreserveRatio(true);
 
             flowPane.getChildren().add(time);
