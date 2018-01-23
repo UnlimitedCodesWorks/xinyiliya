@@ -26,7 +26,7 @@ public class UnReplyNumThread extends Thread {
                 text.setText("≡ 查看消息"+num);
             }
             try {
-                Thread.sleep(1000*60);
+                Thread.sleep(1000*5);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

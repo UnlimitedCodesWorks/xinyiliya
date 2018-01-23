@@ -23,7 +23,7 @@ public class UnReadNumThread extends Thread {
             Integer num =messageService.viewNewNum(sendId,receiveId);
             text.setText(""+num.toString()+"条未读消息");
             try {
-                Thread.sleep(1000*60);
+                Thread.sleep(1000*5);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -110,7 +110,7 @@ public class Dialog {
                         }
                     });
                     try {
-                        Thread.sleep(1000*10);
+                        Thread.sleep(1000*2);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -205,7 +205,7 @@ public class Dialog {
                         }
                     }
                     try {
-                        Thread.sleep(1000*10);
+                        Thread.sleep(1000*2);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
