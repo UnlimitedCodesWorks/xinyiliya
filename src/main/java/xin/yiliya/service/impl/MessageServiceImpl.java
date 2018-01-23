@@ -53,6 +53,19 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    public List<MessagePicture> viewRecentNew(Integer sendId, Integer receiveId) {
+        ParameterizedTypeReference<List<MessagePicture>> typeRef = new ParameterizedTypeReference<List<MessagePicture>>() {
+        };
+        MultiValueMap<String,String> headers = new LinkedMultiValueMap<String, String>();
+        headers.add("Accept","application/json");
+        HttpEntity<Object> requestEntity = new HttpEntity<Object>(headers);
+        ResponseEntity<List<MessagePicture>> responseEntity =
+                rest.exchange(URL+"recentMsgs?sendId={sendId}&receiveId={receiveId}",
+                        HttpMethod.GET,requestEntity,typeRef,sendId,receiveId);
+        return responseEntity.getBody();
+    }
+
+    @Override
     public Integer viewNewNum(Integer sendId, Integer receiveId) {
         return rest.getForObject(URL+"newMsgNum?sendId={sendId}&receiveId={receiveId}",Integer.class,sendId,receiveId);
     }

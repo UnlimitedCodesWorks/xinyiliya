@@ -31,6 +31,14 @@ public interface MessageService {
     List<MessagePicture> viewNew(Integer sendId,Integer receiveId);
 
     /**
+     * 查看最近消息
+     * @param sendId 发送者id
+     * @param receiveId 接收者id
+     * @return 消息的list
+     */
+    List<MessagePicture> viewRecentNew(Integer sendId,Integer receiveId);
+
+    /**
      * 用户查看未读消息数目
      * @param sendId
      * @param receiveId

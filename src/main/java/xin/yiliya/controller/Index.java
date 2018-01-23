@@ -141,6 +141,8 @@ public class Index {
                         dialog.setResizable(false);
                         final Dialog dialogController = fxmlLoader.getController();
                         dialogController.setStage(dialog);
+                        dialogController.setReceiverId(receiveId);
+                        dialogController.init();
                         dialog.show();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -169,8 +171,8 @@ public class Index {
         personalStage.setTitle("个人信息");
         personalStage.setScene(new Scene(root));
         personalStage.setResizable(false);
-        personalStage.show();
         personal.init();
+        personalStage.show();
     }
     //点击"+ 添加好友"，打开搜索好友界面
     public void showSearch(MouseEvent mouseEvent) throws Exception{
@@ -189,8 +191,8 @@ public class Index {
         addmessageStage.setTitle("验证消息");
         addmessageStage.setScene(new Scene(root));
         addmessageStage.setResizable(false);
-        addmessageStage.show();
         addmessage.init();
+        addmessageStage.show();
         addmessage.setIndex(index);
     }
 
