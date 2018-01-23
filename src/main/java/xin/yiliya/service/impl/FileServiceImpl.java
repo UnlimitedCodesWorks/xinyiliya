@@ -40,7 +40,7 @@ public class FileServiceImpl implements FileService {
         return responseEntity.getBody();
     }
 
-    public Integer downloadFile(File file) {
-        return rest.postForObject(URL+"dwlFile",file,Integer.class);
+    public Integer cancelFile(File file) {
+        return rest.postForObject(URL+"unDwlFile",file,Integer.class);
     }
 }

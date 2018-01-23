@@ -55,7 +55,8 @@
       <Button alignment="CENTER" minHeight="35.0" minWidth="100.0" mnemonicParsing="false" onAction="#selectImage" style="-fx-background-color: #FFF; -fx-border-color: #3498db;" text="发送图片" GridPane.columnIndex="4" GridPane.rowIndex="8" />
       <ScrollPane fx:id="scroll2" hbarPolicy="NEVER" maxHeight="510.0" minWidth="270.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #CCC;" GridPane.columnIndex="10" GridPane.rowIndex="4" GridPane.rowSpan="3">
          <content>
-            <FlowPane fx:id="container2" minHeight="510.0" minWidth="250.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFF;" />
+            <FlowPane fx:id="container2" minHeight="510.0" minWidth="250.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFF;" >
+            </FlowPane>
          </content>
       </ScrollPane>
       <Label text="文件列表" GridPane.columnIndex="10" GridPane.rowIndex="2">

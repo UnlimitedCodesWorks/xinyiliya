@@ -26,6 +26,8 @@ import xin.yiliya.service.MessageService;
 import xin.yiliya.service.PictureService;
 import xin.yiliya.service.UserService;
 import xin.yiliya.tool.AliOssTool;
+import xin.yiliya.tool.GetObjectProgressListener;
+import xin.yiliya.tool.PutObjectProgressListener;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -80,6 +82,8 @@ public class Dialog {
 
     private AliOssTool aliOssTool;
 
+    private int fileNum = 0;
+
     public void init() {
         userBean = (UserBean) SpringContext.ctx.getBean("userBean");
         messageService = (MessageService) SpringContext.ctx.getBean("messageServiceImpl");
@@ -114,10 +118,104 @@ public class Dialog {
             }
         });
         t1.start();
+        //启动线程监听是否有新文件
+        Thread t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true){
+                    List<xin.yiliya.pojo.File> fileList = fileService.readFile(receiverId,sender.getId());
+                    if(fileList.size()!=0){
+                        for(final xin.yiliya.pojo.File file:fileList){
+                            final GetObjectProgressListener getObjectProgressListener = (GetObjectProgressListener) SpringContext.ctx.getBean("getObjectProgressListener");
+                            final String filePath = file.getFilePath();
+                            final String fileName = file.getFileName();
+                            final Thread[] t = new Thread[1];
+                            //容器
+                            final FlowPane flowPane = new FlowPane();
+                            flowPane.setMinWidth(250);
+                            flowPane.setMaxWidth(250);
+                            flowPane.setVgap(10);
 
+                            //文件名
+                            Label name = new Label(fileName);
+                            name.setMinWidth(250);
+
+                            //进度条
+                            final ProgressBar progressBar = new ProgressBar();
+                            progressBar.setMinWidth(250);
+
+                            //取消下载
+                            final Hyperlink hplz = new Hyperlink("取消");
+                            hplz.setMinWidth(125);
+                            hplz.setStyle("-fx-alignment: TOP_LEFT;");
+
+                            //下载
+                            Hyperlink hpl = new Hyperlink("下载");
+                            hpl.setMinWidth(125);
+                            hpl.setStyle("-fx-alignment: TOP_RIGHT;");
+
+                            flowPane.getChildren().add(name);
+                            flowPane.getChildren().add(progressBar);
+                            flowPane.getChildren().add(hplz);
+                            flowPane.getChildren().add(hpl);
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //更新JavaFX的主线程的代码放在此处
+                                    container2.getChildren().add(flowPane);
+                                }
+                            });
+                            hpl.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                @Override
+                                public void handle(MouseEvent event) {
+                                     t[0] = new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            getObjectProgressListener.setProgressBar(progressBar);
+                                            final File newFile = new File("src/resource/image/"+fileName);
+                                            aliOssTool.getObject(newFile,filePath,getObjectProgressListener);
+                                            Platform.runLater(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    //更新JavaFX的主线程的代码放在此处
+                                                    container2.getChildren().removeAll(container2.getChildren().get(0));
+                                                }
+                                            });
+                                        }
+                                    });
+                                    t[0].start();
+                                }
+                            });
+
+                            hplz.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                @Override
+                                public void handle(MouseEvent event) {
+                                    Platform.runLater(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            //更新JavaFX的主线程的代码放在此处
+                                            container2.getChildren().removeAll(container2.getChildren().get(0));
+                                        }
+                                    });
+                                    if(t[0]!=null){
+                                        t[0].stop();
+                                    }
+                                }
+                            });
+                        }
+                    }
+                    try {
+                        Thread.sleep(1000*10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        t2.start();
     }
 
-    //创建消息结点
+    //创建消息结点(后端添加）
     private void createMessNode(List<MessagePicture> list){
         for(MessagePicture messagePicture : list){
             Message message = messagePicture.getMessage();
@@ -164,6 +262,56 @@ public class Dialog {
                 this.cancel();
             }},50);
     }
+
+    //创建消息结点(前端添加）
+    private void createMessNode1(List<MessagePicture> list){
+        container.getChildren().removeAll();
+        for(MessagePicture messagePicture : list){
+            Message message = messagePicture.getMessage();
+            Picture picture = messagePicture.getPicture();
+            //容器
+            FlowPane flowPane = new FlowPane();
+            flowPane.setMinWidth(690);
+            flowPane.setMaxWidth(690);
+            flowPane.setHgap(20);
+            flowPane.setVgap(10);
+
+            //时间
+            Label time = new Label(formatter.format(message.getMsgTime()));
+            time.setMinWidth(690);
+            time.setTextFill(Color.web("#A8A8A8"));
+
+            //头像
+            ImageView head = new ImageView(message.getSender().getUserHead());
+            head.setFitHeight(100);
+            head.setFitWidth(100);
+            head.setPreserveRatio(true);
+
+            flowPane.getChildren().add(time);
+            flowPane.getChildren().add(head);
+            if(picture!=null){
+                //图片
+                Image image = new Image(picture.getImgPath());
+                ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(400);
+                imageView.setPreserveRatio(true);
+                flowPane.getChildren().add(imageView);
+            }else {
+                //内容
+                Label text = new Label(message.getContent());
+                text.setWrapText(true);
+                text.setMaxWidth(570);
+                flowPane.getChildren().add(text);
+            }
+            container.getChildren().add(0,flowPane);
+        }
+        timer.schedule(new TimerTask(){
+            public void run(){
+                scroll.setVvalue(1);
+                this.cancel();
+            }},50);
+    }
+
     //发送消息
     public void submit(ActionEvent event) {
         if (content.getText().length() != 0) {
@@ -212,6 +360,7 @@ public class Dialog {
 
     //选择文件
     public void selectFile(ActionEvent event) {
+        final PutObjectProgressListener putObjectProgressListener = (PutObjectProgressListener) SpringContext.ctx.getBean("putObjectProgressListener");
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("选择文件");
         fileChooser.getExtensionFilters().add(
@@ -230,24 +379,82 @@ public class Dialog {
             name.setMinWidth(250);
 
             //进度条
-            ProgressBar progressBar = new ProgressBar();
+            final ProgressBar progressBar = new ProgressBar();
             progressBar.setMinWidth(250);
 
-            //下载
-            Hyperlink hpl = new Hyperlink("下载");
-            hpl.setMinWidth(250);
+            //暂停
+            //取消
+            final Hyperlink hplz = new Hyperlink("暂停");
+            hplz.setMinWidth(125);
+            hplz.setStyle("-fx-alignment: TOP_LEFT;");
+
+            //取消
+            Hyperlink hpl = new Hyperlink("取消");
+            hpl.setMinWidth(125);
             hpl.setStyle("-fx-alignment: TOP_RIGHT;");
-            hpl.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    System.out.println(file.getName());
-                }
-            });
 
             flowPane.getChildren().add(name);
             flowPane.getChildren().add(progressBar);
+            flowPane.getChildren().add(hplz);
             flowPane.getChildren().add(hpl);
             container2.getChildren().add(flowPane);
+            final Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    putObjectProgressListener.setProgressBar(progressBar);
+                    MessageFile messageFile = new MessageFile();
+                    Message message = new Message();
+                    message.setReceiveId(receiverId);
+                    message.setSendId(sender.getId());
+                    xin.yiliya.pojo.File file1 = new xin.yiliya.pojo.File();
+                    file1.setFileName(file.getName());
+                    file1.setFilePath(aliOssTool.putObject(file,putObjectProgressListener));
+                    messageFile.setFile(file1);
+                    messageFile.setMessage(message);
+                    if(fileService.sendFile(messageFile)!=0){
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                //更新JavaFX的主线程的代码放在此处
+                                container2.getChildren().removeAll(container2.getChildren().get(fileNum));
+                            }
+                        });
+                    }else {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                //更新JavaFX的主线程的代码放在此处
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setTitle("QQ");
+                                alert.setHeaderText("上传状态");
+                                alert.setContentText("由于意外错误，上传失败！");
+                                alert.showAndWait();
+                            }
+                        });
+                    }
+                }
+            });
+            hplz.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if(hplz.getText().equals("暂停")){
+                        t.suspend();
+                        hplz.setText("继续");
+                    }else if(hplz.getText().equals("继续")){
+                        t.resume();
+                        hplz.setText("暂停");
+                    }
+                }
+            });
+            hpl.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    container2.getChildren().removeAll(container2.getChildren().get(fileNum));
+                    t.stop();
+                }
+            });
+            t.start();
+            fileNum++;
         }
     }
 
@@ -306,7 +513,7 @@ public class Dialog {
 
     //查看历史消息
     public void browseHistory(ActionEvent event) {
-
+        createMessNode1(messageService.viewHistory(receiverId,sender.getId()));
     }
 
     public void setStage(Stage stage) {

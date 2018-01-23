@@ -23,9 +23,9 @@ public interface FileService {
     List<File> readFile(Integer sendId,Integer receiveId);
 
     /**
-     * 确认文件已下载
+     * 取消文件下载
      * @param file 文件信息
      * @return 文件已确认返回1，未确认返回0
      */
-    Integer downloadFile(File file);
+    Integer cancelFile(File file);
 }
